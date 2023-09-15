@@ -12,7 +12,7 @@ export default function useAuthUser() {
    * Login with email and password
    */
   const login = async ({ email, password }) => {
-    const { user, error } = await supabase.auth.signIn({ email, password });
+    const { user, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
     return user;
   };
@@ -22,7 +22,7 @@ export default function useAuthUser() {
    * Useful for logging in after email confirmations
    */
   const loginWithRefreshToken = async (token) => {
-    const { user, error } = await supabase.auth.signIn({ refreshToken: token });
+    const { user, error } = await supabase.auth.signInWithIdToken({ refreshToken: token });
     if (error) throw error;
     return user;
   };
@@ -31,7 +31,7 @@ export default function useAuthUser() {
    * Login with google, github, etc
    */
   const loginWithSocialProvider = async (token) => {
-    const { user, error } = await supabase.auth.signIn({ provider });
+    const { user, error } = await supabase.auth.signInWithOAuth({ provider });
     if (error) throw error;
     return user;
   };
@@ -96,6 +96,13 @@ export default function useAuthUser() {
    * after confirming email address
    */
   const maybeHandleEmailConfirmation = async (route) => {};
+
+
+  const getProducts = async () => {
+    const { data } = await supabase.from('products').select();
+
+    return data;
+  }
   return {
     user,
     login,
@@ -107,5 +114,6 @@ export default function useAuthUser() {
     update,
     sendPasswordRestEmail,
     maybeHandleEmailConfirmation,
+    getProducts,
   };
 }

@@ -5,8 +5,8 @@ import useAuthUser from "@/composables/UseAuthUser";
 // these can come from an environment variable if desired
 // not required however as they are 100% exposed on the client side anyway
 // and that's ok, Supabase expects this
-const supabaseUrl =  process.env.VUE_APP_SUPA_BASE_URL;
-const supabaseKey =process.env.VUE_APP_SUPA_BASE_KEY;;
+const supabaseUrl =  import.meta.env.VITE_SUPA_BASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPA_BASE_KEY;
 
 // setup client
 const supabase = createClient(supabaseUrl, supabaseKey);
